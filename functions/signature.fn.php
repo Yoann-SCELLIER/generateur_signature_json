@@ -21,9 +21,6 @@ function supprimer()
             // explication : array_splice( tableau,clé,longeur);
             array_splice($_SESSION['cars'], $index, 1);
         }
-
-        // redirection vers l'index
-        header('location: index.php');
     }
 }
 

@@ -2,8 +2,9 @@
 require_once dirname(__DIR__) . '/components/header.php';
 
 // affiche la "form" pour le formulaire
-echo 
-"<link rel='stylesheet' href='style.css'>
+?>
+
+<link rel='stylesheet' href='style.css'>
 
 <form id='formId'>
     <form action='./traitement.php' method='post'>
@@ -25,6 +26,10 @@ echo
 
         <input type='submit' id='formSubmit'></bouton>
     </form>
-</form>";
+</form>
+
+<?php
 
 require_once dirname(__DIR__) . '/components/footer.php';
+
+?>
