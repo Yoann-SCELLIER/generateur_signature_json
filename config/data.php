@@ -12,4 +12,4 @@ $_SESSION['cars'] = array(
     array("id" => 3, "model" => "Saab", "vendu" => 3, "stock" => 88, "image" => "https://marque-voiture.com/wp-content/uploads/2016/01/Saab-Logo-1974.png"),
     array("id" => 4, "model" => "Land Rover", "vendu" => 45, "stock" => 2, "image" => "https://cdn.worldvectorlogo.com/logos/land-rover-1.svg"),
     array("id" => 5, "model" => "Mercedes", "vendu" => 46, "stock" => 13, "image" => "https://www.1min30.com/wp-content/uploads/2017/09/mercedes-benz-emblem.jpg")
-);
+); 
