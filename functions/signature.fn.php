@@ -117,6 +117,8 @@ $poste2 = $_POST['poste2'];
 $numero = $_POST['numero'];
 $mail = $_POST['mail'];
 
+$id = ajout();
+$newUsers = array('id' => $id, 'prenom' => $prenom, 'nom' => $nom, 'poste1' => $poste1, 'poste2' => $poste2, 'numero' => $numero, 'mail' => $mail);
 
 foreach ($_SESSION['users'] as $user) {
     
@@ -127,6 +129,4 @@ foreach ($_SESSION['users'] as $user) {
         $_SESSION['users'][$index] = array_replace($user, $newUsers);
     }
 }
-$id = ajout();
-$newUsers = array('id' => $id, 'prenom' => $prenom, 'nom' => $nom, 'poste1' => $poste1, 'poste2' => $poste2, 'numero' => $numero, 'mail' => $mail);
 }
