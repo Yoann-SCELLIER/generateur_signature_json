@@ -1,45 +1,50 @@
-// Création de constante avec "querySelector" qui selectionne les éléments.
-const textInput = document.querySelector("#formText");
-const numberInput = document.querySelector("#formNumber");
+// Sélection de l'élément bouton avec la classe 'js-copy'
+var btncopy = document.querySelector('.js-copy');
 
-
-// Création de variable de validation pour garder une trace de la validation, initialement elles sont toutes "false".
-let textValid = false;
-let numberValid = false;
-
-// Création de const "constante" regex qui imposera des conditions 
-
-// Impose trois caractère à vingt-trois maximum, majuscule et minuscule accepter pour valider le formulaire "NOM" et "PRENOM"
-const textRegex = /^[a-zA-Z-]{3,23}$/;
-
-// Ajout de "?" après le "+" pour dire peut être différent et, supprimer "1" par "0" pour accepter le 06 et limite un total de 10 chiffre pour valider le formulaire du téléphone.
-const numberRegex = /^\d{10}$/;
-
-// Création d'une fonction addClass qui prend dans les paramètres "input" & "regex"
-function addClass(input, regex, value) {
-
-// Création d'une condition qui va vérifié si c'est "true" ou "false"
-// Si c'est "true" (vrai) elle passe dans la condition "if"
-    if (regex.test(value)) {
-        input.classList.add("is-valid"); // add pour ajouter vert
-        input.classList.remove("is-invalid"); // remove pour ajouter rouge
-
-// Si c'est "false" (faux) elle passe dans la condition "else"
-    } else {
-        input.classList.remove("is-valid"); // remove pour retirer le vert
-        input.classList.add("is-invalid"); // add pour rajouter le rouge"
-    }
+// Vérification si le bouton a été trouvé
+if(btncopy) {
+    // Ajout d'un écouteur d'événements de clic sur le bouton
+    btncopy.addEventListener('click', docopy);
 }
 
-// Création d'écoute d'évenement pour vérifier si le formulaire est "false" ou "true".
-// Formulaire "MODEL"
-modelInput.addEventListener("input",function (e){
-    addClass(textInput,userRegex, e.target.value)
-    textInput.classList.contains("is-valid") ? textValid = true : textValid = false;
-});
+// Fonction qui sera appelée lors du clic sur le bouton
+function docopy() {
+    // Récupération de l'élément à copier à partir de son attribut 'data-target'
+    var target = this.dataset.target;
+    var fromElement = document.querySelector(target);
+    
+    // Vérification si l'élément à copier existe
+    if(!fromElement) return;
 
-// Formulaire "VENDU et STOCK"
-venduInput.addEventListener("input",function (e){
-    addClass(numberInput,userRegex, e.target.value)
-    numberInput.classList.contains("is-valid") ? numberValid = true : numberValid = false;
-});
+    // Création d'une plage de sélection
+    var range = document.createRange();
+    var selection = window.getSelection();
+    range.selectNode(fromElement);
+    
+    // Suppression de toutes les plages de sélection précédentes et ajout de la nouvelle plage
+    selection.removeAllRanges();
+    selection.addRange(range);
+
+    try {
+        // Tentative d'exécution de la commande de copie du texte sélectionné dans le presse-papiers
+        var result = document.execCommand('copy');
+        
+        // Vérification si la copie a réussi
+        if (result) {
+            // Affichage d'une alerte indiquant que la copie a réussi
+            alert('Copié !');
+        }
+    }
+    catch(err) {
+        // Gestion des erreurs : Affichage d'une alerte avec le message d'erreur
+        alert(err);
+    }
+
+    // Nettoyage de la sélection
+    selection = window.getSelection();
+    if (typeof selection.removeRange === 'function') {
+        selection.removeRange(range);
+    } else if (typeof selection.removeAllRanges === 'function') {
+        selection.removeAllRanges();
+    }
+}

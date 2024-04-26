@@ -6,20 +6,20 @@ function supprimer()
     session_start();
 
     // création d'une variable qui récupére l'ID de la URL
-    $idCar = $_GET['id'];
+    $iduser = $_GET['id'];
 
-    // création d'une boucle pour parcourir le tableau $_SESSION et assigner chaque élément à $car
-    foreach ($_SESSION['cars'] as $car) {
+    // création d'une boucle pour parcourir le tableau $_SESSION et assigner chaque élément à $user
+    foreach ($_SESSION['users'] as $user) {
 
-        // 'SI' $car['id'] et identique $idCar et égale
-        if ($car['id'] == $idCar) {
+        // 'SI' $user['id'] et identique $iduser et égale
+        if ($user['id'] == $iduser) {
 
-            // array_splice($_SESSION['cars'][$index], $car, 1);
-            $index = array_search($car, $_SESSION['cars']);
+            // array_splice($_SESSION['users'][$index], $user, 1);
+            $index = array_search($user, $_SESSION['users']);
 
             // 'ALORS' supprime l'élément
             // explication : array_splice( tableau,clé,longeur);
-            array_splice($_SESSION['cars'], $index, 1);
+            array_splice($_SESSION['users'], $index, 1);
         }
     }
 }
@@ -32,17 +32,21 @@ function update()
 
     // création de variable qui serons rappelé
     $urlId = $_POST['id'];
-    $vendu = $_POST['vendu'];
-    $stock = $_POST['stock'];
+    $prenom = $_POST['prenom'];
+    $nom = $_POST['nom'];
+    $poste1 = $_POST['poste1'];
+    $poste2 = $_POST['poste2'];
+    $numero = $_POST['numero'];
+    $mail = $_POST['mail'];
 
-    $newCars = array('vendu' => $vendu, 'stock' => $stock);
+    $newUsers = array('prenom' => $prenom, 'nom' => $nom, 'poste1' => $poste1, 'poste2' => $poste2, 'numero' => $numero, 'mail' => $mail);
 
-    foreach ($_SESSION['cars'] as $car) {
+    foreach ($_SESSION['users'] as $user) {
 
-        if ($car['id'] == $urlId) {
+        if ($user['id'] == $urlId) {
 
-            $index = array_search($car, $_SESSION['cars']);
-            $_SESSION['cars'][$index] = array_replace($car, $newCars);
+            $index = array_search($user, $_SESSION['users']);
+            $_SESSION['users'][$index] = array_replace($user, $newUsers);
         }
     }
 }
@@ -51,10 +55,12 @@ function add()
 {
 
     // création de variable
-    $model = $_POST['model'];
-    $vendu = $_POST['vendu'];
-    $stock = $_POST['stock'];
-
+    $prenom = $_POST['prenom'];
+    $nom = $_POST['nom'];
+    $poste1 = $_POST['poste1'];
+    $poste2 = $_POST['poste2'];
+    $numero = $_POST['numero'];
+    $mail = $_POST['mail'];
 
     // création d'un 'function' pour ajouter un 'id' différent du tableau
     function ajout()
@@ -62,12 +68,12 @@ function add()
         session_start();
 
         // création d'une variable qui démarre à 5 (élément près défini dans le tableau)
-        $id = $_SESSION['cars']['id'];
+        $id = $_SESSION['users']['id'];
 
         // création d'une boucle
-        foreach ($_SESSION['cars'] as $car) {
-            if ($car['id'] > $id) {
-                $id = $car['id'];
+        foreach ($_SESSION['users'] as $user) {
+            if ($user['id'] > $id) {
+                $id = $user['id'];
             }
         }
         $id++;
@@ -78,10 +84,10 @@ function add()
     $id = ajout();
 
     // création d'une variable qui reprend les éléments d'un tableau
-    $newCars = array('id' => $id, 'model' => $model, 'vendu' => $vendu, 'stock' => $stock);
+    $newUsers = array('id' => $id, 'prenom' => $prenom, 'nom' => $nom, 'poste1' => $poste1, 'poste2' => $poste2, 'numero' => $numero, 'mail' => $mail);
 
     // envoie les nouveau éléments dans le tableau
-    array_push($_SESSION['cars'], $newCars);
+    array_push($_SESSION['users'], $newUsers);
 }
 
 function refreshAll()
@@ -91,11 +97,7 @@ function refreshAll()
     session_start();
 
     // création d'une variable qui reprend un tableau multidimensionnel associatif
-    $_SESSION['cars'] = array(
-        array("id" => 1, "model" => "Volvo", "vendu" => 22, "stock" => 18, "image" => "https://upload.wikimedia.org/wikipedia/commons/3/3c/Volvo_Trucks_Logo.png"),
-        array("id" => 2, "model" => "BMW", "vendu" => 33, "stock" => 5, "image" => "https://www.autocollants-stickers.com/resize/634x480/zc/2/f/0/src/sites/astickers/files/products/d8293.png"),
-        array("id" => 3, "model" => "Saab", "vendu" => 3, "stock" => 88, "image" => "https://marque-voiture.com/wp-content/uploads/2016/01/Saab-Logo-1974.png"),
-        array("id" => 4, "model" => "Land Rover", "vendu" => 45, "stock" => 2, "image" => "https://cdn.worldvectorlogo.com/logos/land-rover-1.svg"),
-        array("id" => 5, "model" => "Mercedes", "vendu" => 46, "stock" => 13, "image" => "https://www.1min30.com/wp-content/uploads/2017/09/mercedes-benz-emblem.jpg")
+    $_SESSION['users'] = array(
+        // Je laisse vide.
     );
 }
