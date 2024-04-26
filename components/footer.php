@@ -1,6 +1,6 @@
 <footer>
     
-<script src="/generateur_signature/assets/js/javascript.js"></script>
+<script src='/generateur_signature/assets/js/javascript.js'></script>
 
 </footer>
 

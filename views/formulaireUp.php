@@ -1,25 +1,20 @@
 <?php
 
 // rappel des liens "accueil" et "formulaire"
-require_once dirname(__DIR__) . '/components/header.php';
 require_once dirname(__DIR__) . '/config/data.php';
-require_once dirname(__DIR__) . '/functions/signature.fn.php';
-
-// session_start();
+require_once dirname(__DIR__) . '/components/header.php';
 
 $id = $_GET['id'];
 
 foreach ($_SESSION['users'] as $user) {
 
-    if ($user['id'] == $id) {    // [1,2,3,4,5, 10  , 10]
-
-
-        // mais en relation avec les autres fichiers "$_SESSION"
+    if ($user['id'] == $id) {
 
         // affiche la "div" pour la liste des éléments du tableau
 ?>
         <form style="border: solide; border: 2px; width: 550px; padding: 10px;" action="/generateur_json/controllers/update.php?id=<?= $_GET['id'] ?>" method="post">
             <div style="margin: 10px;">
+            <input type='text' name='id' value='<?php echo $_GET['id'] ?>'>
                 <label style="color: #e85d1c; font-family: Arial; font-weight: bold; font-size: 20px;" for="prenom">Prenom :</label>
                 <input  type="text" placeholder="<?php echo $user["prenom"] ?>" name="prenom" id="prenom">
                 <label style="color: #e85d1c; font-family: Arial; font-weight: bold; font-size: 20px;" for="nom">Nom :</label>
