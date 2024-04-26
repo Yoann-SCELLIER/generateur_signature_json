@@ -5,6 +5,6 @@
 require_once dirname(__DIR__) . '/functions/signature.fn.php';
 
 // on appel la fonction de modification des signatures qui ce situe dans le dossier function signature.fn.php
-refreshAll();
+add();
 
 header('Location: /generateur_json/index.php'); // Redirection sur la page d'accueil
