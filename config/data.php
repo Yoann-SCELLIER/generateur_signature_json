@@ -1,7 +1,6 @@
 <?php
 
 // mais en relation avec les autres fichiers "$_SESSION"
-session_start();
 
 // création d"une variable qui reprend un tableau multidimensionnel associatif
 $_SESSION["users"] = array(

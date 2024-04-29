@@ -2,17 +2,18 @@
 
 function supprimer()
 {
+
     // mais en relation avec les autres fichiers "$_SESSION"
     session_start();
 
     // création d"une variable qui récupére l"ID de la URL
-    $iduser = $_GET["id"];
+    $idUser = $_GET["id"];
 
     // création d"une boucle pour parcourir le tableau $_SESSION et assigner chaque élément à $user
     foreach ($_SESSION["users"] as $user) {
 
         // "SI" $user["id"] et identique $iduser et égale
-        if ($user["id"] == $iduser) {
+        if ($user["id"] == $idUser) {
 
             // array_splice($_SESSION["users"][$index], $user, 1);
             $index = array_search($user, $_SESSION["users"]);
@@ -26,71 +27,75 @@ function supprimer()
 
 function update()
 {
-
-    // mais en relation avec les autres fichiers "$_SESSION"
+    // Démarrer la session
     session_start();
 
-    // création de variable qui serons rappelé
-    $id = $_POST["id"];
+    // Vérifier si l'ID est défini
+    if (isset($_GET['id'])) {
+        $id = $_GET['id'];
 
-    $prenom = $_POST["prenom"];
-    $nom = $_POST["nom"];
-    $poste1 = $_POST["poste1"];
-    $poste2 = $_POST["poste2"];
-    $numero = $_POST["numero"];
-    $mail = $_POST["mail"];
-
-    $newUsers = array("id" => $id, "prenom" => $prenom, "nom" => $nom, "poste1" => $poste1, "poste2" => $poste2, "numero" => $numero, "mail" => $mail);
-
-    foreach ($_SESSION["users"] as $user) {
-
-        if ($user["id"] == $id) {
-
-            $index = array_search($user, $_SESSION["users"]);
-            $_SESSION["users"][$index] = array_replace($user, $newUsers);
+        // Parcourir les utilisateurs dans la session
+        foreach ($_SESSION["users"] as &$user) {
+            if ($user["id"] == $id) {
+                // Vérifier chaque champ et mettre à jour les valeurs si elles sont postées
+                if (isset($_POST["prenom"]) && !empty($_POST["prenom"])) {
+                    $user["prenom"] = $_POST["prenom"];
+                } if (isset($_POST["nom"]) && !empty($_POST["nom"])) {
+                    $user["nom"] = $_POST["nom"];
+                } if (isset($_POST["poste1"]) && !empty($_POST["poste1"])) {
+                    $user["poste1"] = $_POST["poste1"];
+                } if (isset($_POST["poste2"]) && !empty($_POST["poste2"])) {
+                    $user["poste2"] = $_POST["poste2"];
+                } if (isset($_POST["numero"]) && !empty($_POST["numero"])) {
+                    $user["numero"] = $_POST["numero"];
+                } if (isset($_POST["mail"]) && !empty($_POST["mail"])) {
+                    $user["mail"] = $_POST["mail"];
+                }
+                // Sortir de la boucle une fois que l'utilisateur est trouvé et mis à jour
+                break;
+            }
         }
     }
 }
 
-function add() {
+
+function add()
+{
 
     // mais en relation avec les autres fichiers "$_SESSION"
     session_start();
-    
+
     // création de variable
-    
     $prenom = $_POST["prenom"];
     $nom = $_POST["nom"];
     $poste1 = $_POST["poste1"];
     $poste2 = $_POST["poste2"];
     $numero = $_POST["numero"];
     $mail = $_POST["mail"];
-    
-    
+
     // création d'un "function" pour ajouter un "id" différent du tableau
-    function ajout(){
-        
+    function ajout()
+    {
+
         // création d'une variable qui démarre à 5 (élément près défini dans le tableau)
         $id = $_SESSION["users"]["id"];
-        
+
         // création d'une boucle
-        foreach($_SESSION["users"] as $user){
-            if($user["id"] > $id){
+        foreach ($_SESSION["users"] as $user) {
+            if ($user["id"] > $id) {
                 $id = $user["id"];
             }
         }
         $id++;
         return $id;
     }
+
     $id = ajout();
     // création d'une variable qui reprend les éléments d'un tableau
     $newUsers = array("id" => $id, "prenom" => $prenom, "nom" => $nom, "poste1" => $poste1, "poste2" => $poste2, "numero" => $numero, "mail" => $mail);
-    
+
     // envoie les nouveau éléments dans le tableau
-    array_push ($_SESSION["users"], $newUsers);
-    
-    // redirige dans "index" après envoi du nouveau fichier
-    header('Location: /generateur_json/index.php'); // Redirection sur la page d'accueil
+    array_push($_SESSION["users"], $newUsers);
 }
 
 function refreshAll()
@@ -103,33 +108,4 @@ function refreshAll()
     $_SESSION["users"] = array(
         // Je laisse vide.
     );
-}
-
-function view() {
-
-    // mais en relation avec les autres fichiers "$_SESSION"
-session_start();
-
-// création de variable qui serons rappelé
-$urlId = $_POST["id"];
-
-$prenom = $_POST["prenom"];
-$nom = $_POST["nom"];
-$poste1 = $_POST["poste1"];
-$poste2 = $_POST["poste2"];
-$numero = $_POST["numero"];
-$mail = $_POST["mail"];
-
-$id = ajout();
-$newUsers = array("id" => $id, "prenom" => $prenom, "nom" => $nom, "poste1" => $poste1, "poste2" => $poste2, "numero" => $numero, "mail" => $mail);
-
-foreach ($_SESSION["users"] as $user) {
-    
-    
-    if ($user["id"] == $urlId) {
-        
-        $index = array_search($user, $_SESSION["users"]);
-        $_SESSION["users"][$index] = array_replace($user, $newUsers);
-    }
-}
 }
