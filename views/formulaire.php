@@ -1,6 +1,6 @@
 <div>
     <!-- Formulaire pour une nouvelle signature -->
-    <form style='border: solide; border: 2px; width: 550px; padding: 10px;' action='/generateur_json/functions/ajout.php' enctype='multipart/form-data' method='post'>
+    <form style='border: solide; border: 2px; width: 550px; padding: 10px;' action='/generateur_json/controllers/add.php' enctype='multipart/form-data' method='post'>
         <div >
         <img src='https://i.goopics.net/c3xabf.jpg' style='width: 150px; width: 9rem; text-decoration-line: none; text-decoration:none; background-color: white;' alt='Logo Agence'>
             <div style='margin: 10px;'>
