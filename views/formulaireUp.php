@@ -12,37 +12,37 @@ foreach ($_SESSION["users"] as $user) {
 
         // affiche la 'div' pour la liste des éléments du tableau
 ?>
-        <form style='border: solide; border: 2px; width: 550px; padding: 10px;' action='/generateur_json/controllers/update.php?id=<?= $_GET["id"] ?>' method='post'>
+        <form style='border: solid; border-width: 2px; width: 550px; padding: 10px;' action='/generateur_json/controllers/update.php?id=<?= $_GET["id"] ?>' method='post'>
             <div style='margin: 10px;'>
-            <input type='text' name='id' value='<?php echo $_GET["id"] ?>' hidden>
-                <label style='color: #e85d1c; font-family: Arial; font-weight: bold; font-size: 20px;' for='prenom'>Prenom :</label>
-                <input  type='text' placeholder='<?php echo $user["prenom"] ?>' name='prenom' id='prenom'>
+                <input type='text' name='id' value='<?php echo $_GET["id"] ?>' hidden>
+                <label style='color: #e85d1c; font-family: Arial; font-weight: bold; font-size: 20px;' for='prenom'>Prénom :</label>
+                <input type='text' placeholder='<?php echo $user["prenom"] ?>' name='prenom' id='prenom'>
                 <label style='color: #e85d1c; font-family: Arial; font-weight: bold; font-size: 20px;' for='nom'>Nom :</label>
-                <input  size='22' type='text' placeholder='<?php echo $user["nom"] ?>' name='nom' id='nom'>
+                <input size='22' type='text' placeholder='<?php echo $user["nom"] ?>' name='nom' id='nom'>
             </div>
             <br>
             <div style='margin: 10px;'>
                 <label style='color: #e85d1c; font-family: Arial; font-weight: bold; font-size: 20px;' for='poste1'>Poste 1 :</label>
-                <input  size='57' type='text' placeholder='<?php echo $user["poste1"] ?>' name='poste1' id='poste1'>
+                <input size='57' type='text' placeholder='<?php echo $user["poste1"] ?>' name='poste1' id='poste1'>
             </div>
             <br>
             <div style='margin: 10px;'>
                 <label style='color: #e85d1c; font-family: Arial; font-weight: bold; font-size: 20px;' for='poste2'>Poste 2 :</label>
-                <input  size='57' type='text' placeholder='<?php echo $user["poste2"] ?>' name='poste2' id='poste2'>
+                <input size='57' type='text' placeholder='<?php echo $user["poste2"] ?>' name='poste2' id='poste2'>
             </div>
             <br>
             <div style='margin: 10px;'>
                 <label style='color: #e85d1c; font-family: Arial; font-weight: bold; font-size: 20px;' for='numero'>Numéro :</label>
-                <input  type='text' placeholder='<?php echo $user["numero"] ?>' name='numero' id='numero'>
+                <input type='text' placeholder='<?php echo $user["numero"] ?>' name='numero' id='numero'>
                 <label style='color: #e85d1c; font-family: Arial; font-weight: bold; font-size: 20px;' for='mail'>Email :</label>
-                <input  type='text' placeholder='<?php echo $user["mail"] ?>' name='mail' id='mail'>
+                <input type='text' placeholder='<?php echo $user["mail"] ?>' name='mail' id='mail'>
             </div>
             <!-- Fin du formulaire des modifications -->
             <br>
             <div style='text-align: center; background-color: rgb(255, 255, 255); color: #e85d1c; font-family: Arial; font-weight: bold; font-size: 20px;'>
-                <!-- Bouton pour enregistrer les modifications ou retourer à l'accueil -->
-                <button style='text-align: center; background-color: rgb(255, 255, 255); color: #e85d1c; font-family: Arial; font-weight: bold; font-size: 20px;' type='submit'>Enregistrer les modifications</button>
-                <button style='text-align: center; background-color: rgb(255, 255, 255); color: #e85d1c; font-family: Arial; font-weight: bold; font-size: 20px;' href='/generateur_json/index.php'>Accueil</button>
+                <!-- Bouton pour enregistrer les modifications ou retourner à l'accueil -->
+                <button style='background-color: rgb(255, 255, 255); color: #e85d1c; font-family: Arial; font-weight: bold; font-size: 20px;' type='submit'>Enregistrer les modifications</button>
+                <a href='/generateur_json/index.php' style='background-color: rgb(255, 255, 255); color: #e85d1c; font-family: Arial; font-weight: bold; font-size: 20px;'>Accueil</a>
                 <!-- Fin des Boutons enregistrer et accueil -->
             </div>
         </form>
@@ -52,7 +52,7 @@ foreach ($_SESSION["users"] as $user) {
             Veuillez modifier les champs désirés, ce qui n'a pas été modifié restera inchangé.</p>
         <br>
         <hr>
-        <!-- Vue de la signature ciblé à modifier -->
+        <!-- Vue de la signature ciblée à modifier -->
         <table>
             <tr>
                 <td>
@@ -78,7 +78,7 @@ foreach ($_SESSION["users"] as $user) {
                 </td>
             </tr>
         </table>
-        <!-- Fin de la vue de la signature ciblé -->
+        <!-- Fin de la vue de la signature ciblée -->
 
 <?php
     }

@@ -2,26 +2,28 @@
 
 function supprimer()
 {
+    // Vérifier si l'ID utilisateur est présent dans la requête
+    if(isset($_GET["id"]) && is_numeric($_GET["id"]) && $_GET["id"] > 0) {
+        
+        // Démarrer la session
+        session_start();
 
-    // mais en relation avec les autres fichiers "$_SESSION"
-    session_start();
+        // Récupérer l'ID utilisateur depuis la requête
+        $idUser = (int)$_GET["id"];
 
-    // création d"une variable qui récupére l"ID de la URL
-    $idUser = $_GET["id"];
-
-    // création d"une boucle pour parcourir le tableau $_SESSION et assigner chaque élément à $user
-    foreach ($_SESSION["users"] as $user) {
-
-        // "SI" $user["id"] et identique $iduser et égale
-        if ($user["id"] == $idUser) {
-
-            // array_splice($_SESSION["users"][$index], $user, 1);
-            $index = array_search($user, $_SESSION["users"]);
-
-            // "ALORS" supprime l"élément
-            // explication : array_splice( tableau,clé,longeur);
-            array_splice($_SESSION["users"], $index, 1);
+        // Rechercher l'index de l'utilisateur dans le tableau $_SESSION
+        foreach ($_SESSION["users"] as $index => $user) {
+            if ($user["id"] == $idUser) {
+                // Supprimer l'utilisateur du tableau $_SESSION
+                unset($_SESSION["users"][$index]);
+                // Terminer la boucle une fois que l'utilisateur est trouvé et supprimé
+                break;
+            }
         }
+
+    } else {
+        // Gérer le cas où l'ID utilisateur est invalide
+        echo "ID utilisateur invalide.";
     }
 }
 
@@ -30,13 +32,14 @@ function update()
     // Démarrer la session
     session_start();
 
-    // Vérifier si l'ID est défini
-    if (isset($_GET['id'])) {
+    // Vérifier si l'ID utilisateur est présent et valide dans la requête
+    if(isset($_GET['id']) && is_numeric($_GET['id']) && $_GET['id'] > 0) {
         $id = $_GET['id'];
 
         // Parcourir les utilisateurs dans la session
         foreach ($_SESSION["users"] as &$user) {
             if ($user["id"] == $id) {
+
                 // Vérifier chaque champ et mettre à jour les valeurs si elles sont postées
                 if (isset($_POST["prenom"]) && !empty($_POST["prenom"])) {
                     $user["prenom"] = $_POST["prenom"];
@@ -50,62 +53,92 @@ function update()
                     $user["numero"] = $_POST["numero"];
                 } if (isset($_POST["mail"]) && !empty($_POST["mail"])) {
                     $user["mail"] = $_POST["mail"];
-                }
+                }  
                 // Sortir de la boucle une fois que l'utilisateur est trouvé et mis à jour
                 break;
             }
         }
+    } else {
+        // Gérer le cas où l'ID utilisateur est invalide
+        echo "ID utilisateur invalide.";
     }
 }
 
-
 function add()
 {
-
-    // mais en relation avec les autres fichiers "$_SESSION"
+    // Démarrer la session
     session_start();
 
-    // création de variable
-    $prenom = $_POST["prenom"];
-    $nom = $_POST["nom"];
-    $poste1 = $_POST["poste1"];
-    $poste2 = $_POST["poste2"];
-    $numero = $_POST["numero"];
-    $mail = $_POST["mail"];
+    // Vérifier si toutes les données du formulaire sont présentes et non vides
+    if (isset($_POST["prenom"], $_POST["nom"], $_POST["poste1"], $_POST["poste2"], $_POST["numero"], $_POST["mail"]) && !empty($_POST["prenom"]) && !empty($_POST["nom"]) && !empty($_POST["poste1"]) && !empty($_POST["numero"]) && !empty($_POST["mail"])) {
 
-    // création d'un "function" pour ajouter un "id" différent du tableau
-    function ajout()
-    {
+        // Récupérer les données du formulaire
+        $prenom = htmlspecialchars($_POST["prenom"]);
+        $nom = htmlspecialchars($_POST["nom"]);
+        $poste1 = htmlspecialchars($_POST["poste1"]);
+        $poste2 = htmlspecialchars($_POST["poste2"]);
+        $numero = htmlspecialchars($_POST["numero"]);
+        $mail = htmlspecialchars($_POST["mail"]);
 
-        // création d'une variable qui démarre à 5 (élément près défini dans le tableau)
-        $id = $_SESSION["users"]["id"];
-
-        // création d'une boucle
+        // Vérifier si l'utilisateur existe déjà dans la session
         foreach ($_SESSION["users"] as $user) {
-            if ($user["id"] > $id) {
-                $id = $user["id"];
+            if ($user["prenom"] === $prenom && $user["nom"] === $nom) {
+                // Rediriger avec un message d'erreur si l'utilisateur existe déjà
+                header('Location: /generateur_json/views/formulaire.php?error=user_exists');
+                exit();
             }
         }
-        $id++;
-        return $id;
+
+        // Fonction pour ajouter un ID unique
+        function ajout()
+        {
+            // Démarrer l'ID à partir de 1
+            $id = 1;
+
+            // Parcourir les utilisateurs dans la session pour trouver le plus grand ID
+            foreach ($_SESSION["users"] as $user) {
+                if ($user["id"] >= $id) {
+                    $id = $user["id"] + 1;
+                }
+            }
+            return $id;
+        }
+
+        // Appeler la fonction pour obtenir un nouvel ID
+        $id = ajout();
+
+        // Créer un nouvel utilisateur avec les données du formulaire et l'ID généré
+        $newUser = array(
+            "id" => $id,
+            "prenom" => $prenom,
+            "nom" => $nom,
+            "poste1" => $poste1,
+            "poste2" => $poste2,
+            "numero" => $numero,
+            "mail" => $mail
+        );
+
+        // Ajouter le nouvel utilisateur à la session
+        $_SESSION["users"][] = $newUser;
+        
+        // Redirection vers la page d'accueil
+        header('Location: /generateur_json/index.php');
+        exit();
+    } else {
+        // Si des données sont manquantes ou vides, rediriger avec un message d'erreur
+        header('Location: /generateur_json/views/formulaire.php?error=missing_data');
+        echo "Nom et prénom non disponible.";
+        exit();
     }
-
-    $id = ajout();
-    // création d'une variable qui reprend les éléments d'un tableau
-    $newUsers = array("id" => $id, "prenom" => $prenom, "nom" => $nom, "poste1" => $poste1, "poste2" => $poste2, "numero" => $numero, "mail" => $mail);
-
-    // envoie les nouveau éléments dans le tableau
-    array_push($_SESSION["users"], $newUsers);
 }
 
 function refreshAll()
 {
+    // Démarrer la session si elle n'est pas déjà démarrée
+    if (session_status() == PHP_SESSION_NONE) {
+        session_start();
+    }
 
-    // mais en relation avec les autres fichiers "$_SESSION"
-    session_start();
-
-    // création d"une variable qui reprend un tableau multidimensionnel associatif
-    $_SESSION["users"] = array(
-        // Je laisse vide.
-    );
+    // Réinitialiser les données des utilisateurs dans la session
+    $_SESSION["users"] = array();
 }

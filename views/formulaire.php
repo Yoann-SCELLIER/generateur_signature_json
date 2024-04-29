@@ -1,36 +1,37 @@
 <div>
     <!-- Formulaire pour une nouvelle signature -->
-    <form style='border: solide; border: 2px; width: 550px; padding: 10px;' action='/generateur_json/controllers/add.php' enctype='multipart/form-data' method='post'>
-        <div >
-        <img src='https://i.goopics.net/c3xabf.jpg' style='width: 150px; width: 9rem; text-decoration-line: none; text-decoration:none; background-color: white;' alt='Logo Agence'>
+    <form style='border: solid; border-width: 2px; width: 550px; padding: 10px;' action='/generateur_json/controllers/add.php' enctype='multipart/form-data' method='post'>
+        <div>
+            <img src='https://i.goopics.net/c3xabf.jpg' style='width: 150px; width: 9rem; text-decoration-line: none; text-decoration:none; background-color: white;' alt='Logo Agence'>
             <div style='margin: 10px;'>
-                <label style='color: #e85d1c; font-family: Arial; font-weight: bold; font-size: 20px;' for='prenom'>Prenom :</label>
-                <input  type='text' name='prenom' id='prenom'>
+                <label style='color: #e85d1c; font-family: Arial; font-weight: bold; font-size: 20px;' for='prenom'>Prénom :</label>
+                <input type='text' name='prenom' id='prenom'>
                 <label style='color: #e85d1c; font-family: Arial; font-weight: bold; font-size: 20px;' for='nom'>Nom :</label>
-                <input  size='22' type='text' name='nom' id='nom'>
+                <input size='22' type='text' name='nom' id='nom'>
             </div>
             <br>
             <div style='margin: 10px;'>
                 <label style='color: #e85d1c; font-family: Arial; font-weight: bold; font-size: 20px;' for='poste1'>Poste 1 :</label>
-                <input  size='57' type='text' name='poste1' id='poste1'>
+                <input size='57' type='text' name='poste1' id='poste1'>
             </div>
             <br>
             <div style='margin: 10px;'>
                 <label style='color: #e85d1c; font-family: Arial; font-weight: bold; font-size: 20px;' for='poste2'>Poste 2 :</label>
-                <input  size='57' type='text' name='poste2' id='poste2'>
+                <input size='57' type='text' name='poste2' id='poste2'>
             </div>
             <br>
             <div style='margin: 10px;'>
                 <label style='color: #e85d1c; font-family: Arial; font-weight: bold; font-size: 20px;' for='numero'>Numéro :</label>
-                <input  type='tel' name='numero' id='numero'>
+                <input type='tel' name='numero' id='numero'>
                 <label style='color: #e85d1c; font-family: Arial; font-weight: bold; font-size: 20px;' for='mail'>Email :</label>
-                <input  type='email' name='mail' id='mail'>
+                <input type='email' name='mail' id='mail'>
             </div>
             <br>
             <div style='text-align: center; background-color: rgb(255, 255, 255); color: #e85d1c; font-family: Arial; font-weight: bold; font-size: 20px;'>
                 <!-- Bouton pour générer la nouvelle signature -->
-                <button style='text-align: center; background-color: rgb(255, 255, 255); color: #e85d1c; font-family: Arial; font-weight: bold; font-size: 20px;' type='submit'>Générer la signature</button>
-                <!-- Fin du Bouton -->
+                <button style='background-color: rgb(255, 255, 255); color: #e85d1c; font-family: Arial; font-weight: bold; font-size: 20px;' type='submit'>Générer la signature</button>
+                <a href='/generateur_json/index.php' style='background-color: rgb(255, 255, 255); color: #e85d1c; font-family: Arial; font-weight: bold; font-size: 20px;'>Accueil</a>
+                <!-- Fin du bouton -->
             </div>
         </div>
     </form>
