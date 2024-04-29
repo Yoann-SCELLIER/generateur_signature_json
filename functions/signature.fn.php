@@ -31,7 +31,8 @@ function update()
     session_start();
 
     // création de variable qui serons rappelé
-    $urlId = $_POST['id'];
+    $id = $_POST['id'];
+
     $prenom = $_POST['prenom'];
     $nom = $_POST['nom'];
     $poste1 = $_POST['poste1'];
@@ -43,7 +44,7 @@ function update()
 
     foreach ($_SESSION['users'] as $user) {
 
-        if ($user['id'] == $urlId) {
+        if ($user['id'] == $id) {
 
             $index = array_search($user, $_SESSION['users']);
             $_SESSION['users'][$index] = array_replace($user, $newUsers);
@@ -55,6 +56,7 @@ function add()
 {
 
     // création de variable
+    
     $prenom = $_POST['prenom'];
     $nom = $_POST['nom'];
     $poste1 = $_POST['poste1'];
@@ -104,7 +106,7 @@ function refreshAll()
 
 function view() {
 
-    // mais en relation avec les autres fichiers "$_SESSION"
+    // mais en relation avec les autres fichiers '$_SESSION'
 session_start();
 
 // création de variable qui serons rappelé
